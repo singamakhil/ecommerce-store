@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, clearcart } from "../features/cart/cartSlice";
+import {
+  removeFromCart,
+  clearcart,
+  incrementQuantity,
+  decrementQuantity,
+} from "../features/cart/cartSlice";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -32,7 +37,11 @@ export default function Cart() {
             <tr key={item.id}>
               <td>{item.title}</td>
               <td>${item.price}</td>
-              <td>{item.quantity}</td>
+              <td>
+                <button onClick={() => dispatch(decrementQuantity(item.id))}>-</button>
+                {item.quantity}
+                <button onClick={() => dispatch(incrementQuantity(item.id))}>+</button>
+              </td>
               <td>${(item.price * item.quantity).toFixed(2)}</td>
               <td>
                 <button onClick={() => dispatch(removeFromCart(item.id))}>

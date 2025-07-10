@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  removeFromCart,
-  clearcart,
   incrementQuantity,
   decrementQuantity,
+  removeFromCart,
+  clearCart,
 } from "../features/cart/cartSlice";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -16,31 +17,40 @@ export default function Cart() {
   );
 
   if (cartItems.length === 0) {
-    return <h2>Your cart is empty</h2>;
+    return (
+      <div className="container">
+        <h2>Your Cart is Empty</h2>
+        <Link to="/">Go Shopping</Link>
+      </div>
+    );
   }
 
   return (
     <div className="container">
       <h2>Your Cart</h2>
-      <table border="1" cellPadding="10" cellSpacing="0">
+      <table className="cart-table">
         <thead>
           <tr>
             <th>Product</th>
             <th>Price</th>
-            <th>Quantity</th>
+            <th>Qty</th>
             <th>Subtotal</th>
-            <th>Remove</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {cartItems.map((item) => (
             <tr key={item.id}>
               <td>{item.title}</td>
-              <td>${item.price}</td>
+              <td>${item.price.toFixed(2)}</td>
               <td>
-                <button onClick={() => dispatch(decrementQuantity(item.id))}>-</button>
-                {item.quantity}
-                <button onClick={() => dispatch(incrementQuantity(item.id))}>+</button>
+                <button onClick={() => dispatch(decrementQuantity(item.id))}>
+                  −
+                </button>
+                <span style={{ margin: "0 8px" }}>{item.quantity}</span>
+                <button onClick={() => dispatch(incrementQuantity(item.id))}>
+                  +
+                </button>
               </td>
               <td>${(item.price * item.quantity).toFixed(2)}</td>
               <td>
@@ -52,8 +62,11 @@ export default function Cart() {
           ))}
         </tbody>
       </table>
+
       <h3>Total: ${total.toFixed(2)}</h3>
-      <button onClick={() => dispatch(clearcart())}>Clear Cart</button>
+
+      <button onClick={() => dispatch(clearCart())}>Clear Cart</button>
+      <button style={{ marginLeft: "1rem" }}>Proceed to Checkout</button>
     </div>
   );
 }

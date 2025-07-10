@@ -21,4 +21,4 @@ build an ecommerce website , knowledge check
 
 ## 🚀 Live Demo
 
-Check out the live version: [E-commerce Store](https://your-vercel-url.vercel.app)
+Check out the live version: [E-commerce Store](https://ecommerce-store-msbj.vercel.app/)

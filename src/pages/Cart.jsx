@@ -20,7 +20,7 @@ export default function Cart() {
   }
 
   return (
-    <div style={{ padding: "1rem" }}>
+    <div className="container">
       <h2>Your Cart</h2>
       <table border="1" cellPadding="10" cellSpacing="0">
         <thead>
